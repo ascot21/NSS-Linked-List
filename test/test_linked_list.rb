@@ -68,6 +68,32 @@ class LinkedListItemTest < Test::Unit::TestCase
     assert_equal '| foo, bar, grille |', ll.to_s
   end
 
+  # ========= Search ========= #
+
+  def test_15b_search_empty_list
+    ll = LinkedList.new
+    assert_equal( nil, ll.index("foo"))
+  end
+
+  def test_15c_search_list_with_one_item
+      ll = LinkedList.new
+      ll.add_item("foo")
+      assert_equal( 0, ll.index("foo"))
+  end
+
+  def test_15d_search_list_with_multiple_items
+      ll = LinkedList.new
+      ll.add_item("foo")
+      ll.add_item("bar")
+      ll.add_item("grille")
+      assert_equal( 2, ll.index("grille"))
+  end
+
+  def test_15e_search_list_with_item_that_does_not_exist
+      ll = LinkedList.new
+      assert_equal(nil, ll.index("jelly"))    
+  end
+
   # ========= Bonus ========== #
 
   def test_16_initialize_takes_seed_argument
