@@ -72,7 +72,9 @@ class LinkedListItemTest < Test::Unit::TestCase
 
   def test_15b_search_empty_list
     ll = LinkedList.new
-    assert_equal( nil, ll.index("foo"))
+    assert_raise IndexError do
+      ll.index("foo")
+    end
   end
 
   def test_15c_search_list_with_one_item
@@ -91,6 +93,9 @@ class LinkedListItemTest < Test::Unit::TestCase
 
   def test_15e_search_list_with_item_that_does_not_exist
       ll = LinkedList.new
+      ll.add_item("foo")
+      ll.add_item("bar")
+      ll.add_item("grille")
       assert_equal(nil, ll.index("jelly"))    
   end
 

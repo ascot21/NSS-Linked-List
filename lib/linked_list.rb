@@ -2,14 +2,16 @@ require 'linked_list_item'
 
 class LinkedList
   attr_reader :first_item
+  attr_reader :size
 
   def initialize *args
    @size = 0
   end
 
   def add_item(payload)
+     @size += 1
     if @first_item.nil?
-    @first_item = LinkedListItem.new(payload)
+      @first_item = LinkedListItem.new(payload)
     else
     item = @first_item
     until item.next_list_item.nil?
@@ -17,7 +19,6 @@ class LinkedList
     end
     item.next_list_item = LinkedListItem.new(payload)
     end
-    @size += 1
   end
 
   def get(n)
@@ -33,24 +34,40 @@ class LinkedList
 
   def last
     if size == 0
-      nil
-    else
-      last_item = @first_item
-      until last_item.last?
+      return nil
+    end
+    last_item = @first_item
+    until last_item.last?
         last_item = last_item.next_list_item
-      end
     end
     last_item.payload
   end
 
-  def size
-   @size
+  def to_s
+      if size == 0
+      "| |"
+    else
+      items = []
+      item = @first_item
+      while item
+        items << item.payload
+        item = item.next_list_item
+      end
+      output = "| "
+      output += items.join(", ")
+      output += " |"
+    end
   end
 
-  def to_s
-    all_items = []
-    0.upto( self.size - 1 ) { |num| all_items << self.get(num) }
-    string = "| #{all_items.join(", ")}#{all_items.size > 0 ? ' ' : ''}|"
+  def index(n)
+    raise IndexError if size == 0
+    items = []
+    item = @first_item
+    while item
+        items << item.payload
+        item = item.next_list_item
+    end
+    items.index(n)
   end
       
 
